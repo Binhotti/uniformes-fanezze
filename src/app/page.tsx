@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ExpandableCategoryGallery from "@/components/ExpandableCategoryGallery";
 import FloatingContactButton from "@/components/FloatingContactButton";
+import MobileMenu from "@/components/MobileMenu";
 
 function ArrowUpRight({ size = 18 }: { size?: number }) {
   return <svg className="actionIcon" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M9 6h9v9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>;
@@ -41,6 +42,7 @@ export default function Home() {
           <a href="#colecoes">Coleções</a><a href="#diferenciais">Diferenciais</a><a href="#clientes">Clientes</a><a href="/localizacao">Localização</a><a href="/orcamento">Orçamento</a>
         </nav>
         <a className="headerCta" href="/orcamento">Solicitar orçamento <span className="iconSlot"><ArrowUpRight size={16}/></span></a>
+        <MobileMenu />
       </header>
 
       <section className="hero" id="inicio">

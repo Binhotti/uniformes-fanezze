@@ -6,11 +6,11 @@ import { useEffect, useRef, useState } from "react";
 type Category = { title: string; text: string; image: string };
 
 function ArrowUpRight() {
-  return <svg className="actionIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M9 6h9v9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+  return <svg className="actionIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M9 6h9v9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 }
 
 function Chevron({ direction }: { direction: "left" | "right" }) {
-  return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d={direction === "left" ? "m15 18-6-6 6-6" : "m9 6 6 6-6 6"} stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>;
+  return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d={direction === "left" ? "m15 18-6-6 6-6" : "m9 6 6 6-6 6"} stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 }
 
 export default function ExpandableCategoryGallery({ categories }: { categories: Category[] }) {
@@ -65,19 +65,19 @@ export default function ExpandableCategoryGallery({ categories }: { categories: 
           onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") setSelected(i); }}
         >
           <Image src={item.image} alt={`Uniforme ${item.title}`} fill sizes="(max-width: 800px) 100vw, 50vw" />
-          <div className="categoryOverlay"/>
+          <div className="categoryOverlay" />
           <span className="number">0{i + 1}</span>
-          <div className="categoryInfo"><h3>{item.title}</h3><p>{item.text}</p><span className="roundArrow"><ArrowUpRight/></span></div>
+          <div className="categoryInfo"><h3>{item.title}</h3><p>{item.text}</p><span className="roundArrow"><ArrowUpRight /></span></div>
         </article>
       ))}
     </div>
     <div className="categoryPagination" aria-label="Navegação das coleções">
-      {categories.map((item, index) => <button key={item.title} type="button" className={activeSlide === index ? "active" : ""} onClick={() => goToSlide(index)} aria-label={`Ver coleção ${item.title}`} aria-current={activeSlide === index ? "true" : undefined}><span/></button>)}
+      {categories.map((item, index) => <button key={item.title} type="button" className={activeSlide === index ? "active" : ""} onClick={() => goToSlide(index)} aria-label={`Ver coleção ${item.title}`} aria-current={activeSlide === index ? "true" : undefined}><span /></button>)}
     </div>
 
     {selected !== null && <div className="galleryModal" role="dialog" aria-modal="true" aria-label={`Uniforme ${categories[selected].title}`} onClick={() => setSelected(null)}>
-      <button type="button" className="galleryClose" onClick={() => setSelected(null)} aria-label="Fechar imagem"><span/><span/></button>
-      <button type="button" className="galleryNav previous" onClick={(event) => { event.stopPropagation(); setSelected((selected - 1 + categories.length) % categories.length); }} aria-label="Imagem anterior"><Chevron direction="left"/></button>
+      <button type="button" className="galleryClose" onClick={() => setSelected(null)} aria-label="Fechar imagem"><span /><span /></button>
+      <button type="button" className="galleryNav previous" onClick={(event) => { event.stopPropagation(); setSelected((selected - 1 + categories.length) % categories.length); }} aria-label="Imagem anterior"><Chevron direction="left" /></button>
       <div className="galleryModalImage" onClick={(event) => event.stopPropagation()}>
         <div
           className="galleryModalAsset"
@@ -88,7 +88,7 @@ export default function ExpandableCategoryGallery({ categories }: { categories: 
         />
         <div className="galleryCaption"><span>0{selected + 1}</span><strong>{categories[selected].title}</strong></div>
       </div>
-      <button type="button" className="galleryNav next" onClick={(event) => { event.stopPropagation(); setSelected((selected + 1) % categories.length); }} aria-label="Próxima imagem"><Chevron direction="right"/></button>
+      <button type="button" className="galleryNav next" onClick={(event) => { event.stopPropagation(); setSelected((selected + 1) % categories.length); }} aria-label="Próxima imagem"><Chevron direction="right" /></button>
       <div className="galleryCount">0{selected + 1} / 0{categories.length}</div>
     </div>}
   </>;

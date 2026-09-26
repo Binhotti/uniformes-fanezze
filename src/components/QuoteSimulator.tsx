@@ -36,12 +36,16 @@ export default function QuoteSimulator() {
   const [garment, setGarment] = useState<keyof typeof garments>("Polo");
   const [fabric, setFabric] = useState<keyof typeof fabrics>("Premium");
   const [customization, setCustomization] = useState<keyof typeof customizations>("Bordado");
-  const [quantity, setQuantity] = useState(30);
+  const [quantityInput, setQuantityInput] = useState("10");
   const [urgency, setUrgency] = useState(false);
   const [company, setCompany] = useState("");
   const [name, setName] = useState("");
   const [sizes, setSizes] = useState("");
   const [notes, setNotes] = useState("");
+  const [attemptedSubmit, setAttemptedSubmit] = useState(false);
+
+  const quantity = Number(quantityInput) || 0;
+  const requiredFieldsValid = company.trim() !== "" && name.trim() !== "" && sizes.trim() !== "" && Number.isInteger(quantity) && quantity >= 10;
 
   const quote = useMemo(() => {
     const base = garments[garment] * fabrics[fabric].multiplier + customizations[customization];
@@ -72,12 +76,22 @@ export default function QuoteSimulator() {
 
   const whatsappUrl = `https://wa.me/554734265137?text=${encodeURIComponent(message)}`;
 
+  const submitQuote = () => {
+    setAttemptedSubmit(true);
+    if (!requiredFieldsValid) {
+      const firstInvalid = document.querySelector<HTMLElement>(".quoteForm [aria-invalid='true']");
+      firstInvalid?.focus();
+      return;
+    }
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  };
+
   return <div className="quoteLayout">
     <form className="quoteForm" onSubmit={(event) => event.preventDefault()}>
       <div className="formBlock">
         <span className="formStep">01</span><div><h2>Identificação</h2><p>Para quem estamos criando?</p></div>
-        <label><span>Empresa</span><input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Nome da empresa"/></label>
-        <label><span>Seu nome</span><input value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome do responsável"/></label>
+        <label><span>Empresa *</span><input required value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Nome da empresa" aria-invalid={attemptedSubmit && !company.trim()}/>{attemptedSubmit && !company.trim() && <small className="fieldError">Informe o nome da empresa.</small>}</label>
+        <label><span>Seu nome *</span><input required value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome do responsável" aria-invalid={attemptedSubmit && !name.trim()}/>{attemptedSubmit && !name.trim() && <small className="fieldError">Informe o nome do responsável.</small>}</label>
       </div>
 
       <div className="formBlock">
@@ -93,8 +107,8 @@ export default function QuoteSimulator() {
 
       <div className="formBlock">
         <span className="formStep">04</span><div><h2>Quantidade e grade</h2><p>Informe o volume aproximado.</p></div>
-        <label className="quantityField"><span>Quantidade</span><div><button type="button" onClick={() => setQuantity(Math.max(10, quantity - 10))}>−</button><input type="number" min="10" max="5000" value={quantity} onChange={(e) => setQuantity(Math.max(10, Number(e.target.value)))} /><button type="button" onClick={() => setQuantity(quantity + 10)}>+</button></div></label>
-        <label><span>Tamanhos</span><input value={sizes} onChange={(e) => setSizes(e.target.value)} placeholder="Ex.: 5P, 10M, 10G e 5GG"/></label>
+        <label className="quantityField"><span>Quantidade *</span><div><button type="button" onClick={() => setQuantityInput(String(Math.max(10, quantity - 1)))} aria-label="Diminuir quantidade">−</button><input type="number" min="10" step="1" inputMode="numeric" value={quantityInput} onChange={(e) => setQuantityInput(e.target.value)} onBlur={() => { if (!Number.isInteger(quantity) || quantity < 10) setQuantityInput("10"); }} aria-invalid={attemptedSubmit && (!Number.isInteger(quantity) || quantity < 10)} /><button type="button" onClick={() => setQuantityInput(String(Math.max(10, quantity + 1)))} aria-label="Aumentar quantidade">+</button></div>{attemptedSubmit && (!Number.isInteger(quantity) || quantity < 10) && <small className="fieldError">A quantidade mínima é 10 peças.</small>}</label>
+        <label><span>Tamanhos *</span><input required value={sizes} onChange={(e) => setSizes(e.target.value)} placeholder="Ex.: 5P, 10M, 10G e 5GG" aria-invalid={attemptedSubmit && !sizes.trim()}/>{attemptedSubmit && !sizes.trim() && <small className="fieldError">Informe a grade de tamanhos.</small>}</label>
         <label className="checkField"><input type="checkbox" checked={urgency} onChange={(e) => setUrgency(e.target.checked)}/><span><strong>Produção prioritária</strong>Aplicar estimativa para prazo reduzido.</span></label>
         <label><span>Observações</span><textarea value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Cores, detalhes, necessidades específicas..." rows={4}/></label>
       </div>
@@ -105,7 +119,8 @@ export default function QuoteSimulator() {
       <h2>{garment}</h2>
       <dl><div><dt>Quantidade</dt><dd>{quantity} peças</dd></div><div><dt>Tecido</dt><dd>{fabric}</dd></div><div><dt>Personalização</dt><dd>{customization}</dd></div>{quote.discount > 0 && <div className="discount"><dt>Desconto por volume</dt><dd>−{quote.discount * 100}%</dd></div>}</dl>
       <div className="quoteTotal"><span>Estimativa total</span><strong>{money.format(quote.total)}</strong><small>{money.format(quote.unit)} por peça</small></div>
-      <a className="quoteSubmit" href={whatsappUrl} target="_blank" rel="noreferrer">Enviar orçamento completo <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M9 6h9v9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
+      <button type="button" className="quoteSubmit" onClick={submitQuote} aria-disabled={!requiredFieldsValid}>Enviar orçamento completo <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 18 18 6M9 6h9v9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg></button>
+      {attemptedSubmit && !requiredFieldsValid && <p className="quoteValidation" role="alert">Preencha os campos obrigatórios destacados antes de enviar.</p>}
       <p className="quoteDisclaimer">Simulação inicial sujeita à validação de materiais, arte, disponibilidade e prazo de produção.</p>
     </aside>
   </div>;

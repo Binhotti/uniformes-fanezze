@@ -219,3 +219,86 @@ img,video{max-width:100%}
   .categoryPagination button span{display:block;width:7px;height:7px;border:1px solid #f3c76a;border-radius:999px;background:transparent;transition:width .3s ease,background-color .3s ease}
   .categoryPagination button.active span{width:25px;background:var(--gold2)}
 }
+
+/* Escala fluida e nova distribuição cromática. */
+:root{
+  --page-gutter:clamp(1.125rem,5vw,5rem);
+  --content-max:90rem;
+  --space-section:clamp(5rem,9vw,8.5rem);
+  --title-hero:clamp(3rem,8.4vw,7.875rem);
+  --title-section:clamp(2.65rem,5.8vw,5.5rem);
+  --text-fluid:clamp(.98rem,1.18vw,1.125rem);
+  --ice:#f7f3eb;
+  --ice-deep:#eee7dc;
+  --warm-line:#d8cdbd;
+}
+
+.header{padding-inline:max(var(--page-gutter),calc((100vw - var(--content-max))/2))}
+.section{padding-block:var(--space-section);padding-inline:max(var(--page-gutter),calc((100vw - var(--content-max))/2))}
+.heroContent{width:min(calc(100% - (var(--page-gutter) * 2)),70rem);margin-left:max(var(--page-gutter),calc((100vw - var(--content-max))/2));margin-right:var(--page-gutter)}
+.hero h1{font-size:var(--title-hero)}
+.section h2,.cta h2{font-size:var(--title-section)}
+.heroText,.introCopy>p,.atelierCopy>p,.showcaseHeading>p,.locationIntro,.locationHero>p:last-child,.quoteHero>p:last-child{font-size:var(--text-fluid)}
+.heroText{max-width:clamp(32rem,48vw,40rem)}
+.eyebrow{font-size:clamp(.62rem,.74vw,.72rem)}
+
+/* As áreas amplas ficam claras; o preto permanece como contraste da marca. */
+.collections{background:var(--ice);color:var(--ink)}
+.collections .eyebrow{color:#9b6b1f}
+.collections .sectionTop h2 em{color:#9b6b1f}
+.collections .category{color:#fff;box-shadow:0 22px 50px rgba(52,39,23,.12)}
+.uniformShowcase{background:var(--ice-deep);color:var(--ink)}
+.uniformShowcase:before{background:radial-gradient(circle at 50% 42%,rgba(217,164,65,.2),transparent 42%),linear-gradient(90deg,transparent 49.95%,rgba(41,30,18,.08) 50%,transparent 50.05%)}
+.uniformShowcase .eyebrow{color:#98691f}
+.uniformShowcase h2 em{color:#98691f}
+.showcaseHeading>p{color:#625c54}
+.showcaseFoot{color:#70685e}
+.uniformModel{color:#fff;box-shadow:0 24px 55px rgba(55,39,22,.13)}
+.cta{background:radial-gradient(circle at 72% 22%,#fffaf1,var(--ice-deep) 60%);color:var(--ink);border-top:1px solid var(--warm-line)}
+.cta .eyebrow{color:#98691f}
+.cta h2 em{color:#9b6b1f}
+.cta p:not(.eyebrow){color:#686159;font-size:var(--text-fluid)}
+.cta .button.light{background:var(--ink);color:#fff}
+.cta .button.light span{color:var(--gold2)}
+
+/* Dimensões fluidas dos blocos principais. */
+.intro{gap:clamp(3rem,8vw,9rem)}
+.category{height:clamp(32rem,43vw,42rem)}
+.categoryInfo h3{font-size:clamp(2rem,3vw,2.75rem)}
+.uniformStage{min-height:clamp(36rem,48vw,45rem)}
+.showcaseHeading{gap:clamp(2.5rem,8vw,8rem);margin-bottom:clamp(3.5rem,6vw,5rem)}
+.atelier{gap:clamp(3rem,8vw,8rem)}
+.atelierVisual{min-height:clamp(36rem,52vw,44rem)}
+.locationContent,.quoteLayout{padding-inline:max(var(--page-gutter),calc((100vw - var(--content-max))/2))}
+
+@media(max-width:1180px){
+  .header{padding-inline:var(--page-gutter)}
+  .heroContent{margin-left:var(--page-gutter)}
+  .section{padding-inline:var(--page-gutter)}
+  .hero h1{font-size:clamp(3.7rem,8.7vw,6.3rem)}
+  .section h2,.cta h2{font-size:clamp(2.85rem,6.4vw,4.7rem)}
+}
+
+@media(max-width:900px){
+  :root{--space-section:clamp(4.75rem,13vw,6.5rem)}
+  .heroContent{width:calc(100% - (var(--page-gutter) * 2));margin-right:var(--page-gutter);margin-left:var(--page-gutter)}
+  .hero h1{font-size:clamp(3.25rem,9vw,4.35rem)}
+  .section h2,.cta h2{font-size:clamp(2.7rem,7.3vw,3.8rem)}
+  .heroText{font-size:clamp(.95rem,2vw,1.06rem)}
+  .collections{padding-right:0;padding-left:0}
+  .uniformShowcase{padding-inline:var(--page-gutter)}
+  .atelier{padding-bottom:0}
+  .categoryStrip>.category,.categoryStrip>.category.isHovered,.categoryStrip>.category.isDimmed{height:clamp(31rem,72vw,35rem)}
+  .categoryPagination button span{border-color:#9b6b1f}
+  .categoryPagination button.active span{background:#9b6b1f}
+}
+
+@media(max-width:600px){
+  :root{--page-gutter:clamp(1.125rem,5vw,1.5rem)}
+  .hero h1{font-size:clamp(3rem,13.8vw,3.75rem)}
+  .section h2,.cta h2{font-size:clamp(2.55rem,12vw,3.25rem)}
+  .heroText{font-size:clamp(.93rem,4vw,1rem)}
+  .categoryStrip>.category,.categoryStrip>.category.isHovered,.categoryStrip>.category.isDimmed{height:clamp(31rem,138vw,35rem)}
+  .categoryStrip .categoryInfo h3{font-size:clamp(2rem,9vw,2.5rem)}
+  .categoryStrip .categoryInfo p{font-size:clamp(.68rem,2.8vw,.78rem)}
+}

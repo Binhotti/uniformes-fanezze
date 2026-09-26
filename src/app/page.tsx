@@ -44,7 +44,7 @@ export default function Home() {
       </header>
 
       <section className="hero" id="inicio">
-        <video autoPlay muted loop playsInline poster="/images/corporativo.jpg">
+        <video autoPlay muted loop playsInline preload="auto">
           <source src="/media/fanezzi.mp4" type="video/mp4" />
         </video>
         <div className="heroShade" />

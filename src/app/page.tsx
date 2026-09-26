@@ -84,7 +84,7 @@ export default function Home() {
       </section>
 
       <section className="atelier section">
-        <div className="atelierVisual"><div className="goldHalo" /><Image src="/images/modelo-social.png" alt="Profissional com uniforme social personalizado" width={900} height={900} /><p className="verticalText">FEITO PARA REPRESENTAR</p></div>
+        <div className="atelierVisual"><div className="goldHalo" /><Image src="/images/modelo-social.png" alt="Profissional com uniforme social personalizado" width={1000} height={1000} /><p className="verticalText">FEITO PARA REPRESENTAR</p></div>
         <div className="atelierCopy"><p className="eyebrow dark">Seu projeto, do seu jeito</p><h2>Da ideia ao uniforme,<br /><em>cuidamos de tudo.</em></h2><p>Entendemos sua rotina, sua cultura e seus objetivos. Nossa equipe acompanha cada etapa para entregar peças que vestem bem, duram mais e fazem sua marca acontecer.</p><ol><li><span>01</span><div><strong>Imersão na sua marca</strong><p>Necessidades, rotina e identidade visual.</p></div></li><li><span>02</span><div><strong>Criação e modelagem</strong><p>Design exclusivo e escolha de materiais.</p></div></li><li><span>03</span><div><strong>Produção com excelência</strong><p>Controle de qualidade em cada acabamento.</p></div></li></ol></div>
       </section>
 

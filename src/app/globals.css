@@ -102,7 +102,7 @@ section[id]{scroll-margin-top:92px}
 
 /* Menu de navegação para celular. */
 .mobileNav{display:none}
-@media(max-width:900px){
+@media(max-width:1180px){
   body.mobileMenuOpen{overflow:hidden}
   .header .headerCta{display:none}
   .mobileNav{display:block}
@@ -121,4 +121,101 @@ section[id]{scroll-margin-top:92px}
   .mobileMenuPanel nav a span{font-family:var(--font-display),serif;font-size:clamp(24px,7vw,31px);line-height:1.05}
   .mobileMenuPanel nav a:active{color:var(--gold2)}
   .mobileMenuPanel>p{display:none}
+}
+
+/* Ajustes fluidos para tablets, notebooks menores e celulares. */
+html,body{overflow-x:hidden}
+img,video{max-width:100%}
+.clientMarquee{width:calc(100% + 14vw);margin:60px -7vw 30px;overflow:hidden;border-top:1px solid #ddd4c6;border-bottom:1px solid #ddd4c6}
+.clientMarqueeTrack,.clientMarqueeCopy{display:flex;align-items:center;width:max-content}
+.clientMarqueeTrack{animation:clientScroll 28s linear infinite;will-change:transform}
+.clientMarqueeCopy{flex:none}
+.clientMarquee span{display:flex;flex:none;align-items:center;gap:28px;padding:28px 30px;white-space:nowrap}
+.clientMarquee span:after{content:"";width:4px;height:4px;flex:none;border-radius:50%;background:#b17a27}
+.clientMarquee:hover .clientMarqueeTrack{animation-play-state:paused}
+@keyframes clientScroll{to{transform:translateX(-50%)}}
+
+@media(max-width:1180px){
+  .header nav,.header>.headerCta{display:none}
+  .header{padding-right:28px;padding-left:28px}
+  .section{padding-right:5vw;padding-left:5vw}
+  .clients .clientMarquee{width:calc(100% + 10vw);margin-right:-5vw;margin-left:-5vw}
+}
+
+@media(min-width:901px) and (max-width:1180px){
+  .heroContent{margin-left:6vw}
+  .hero h1{font-size:clamp(68px,8vw,92px)}
+  .intro{gap:5vw}
+  .introCopy>p,.atelierCopy>p{font-size:16px}
+  .category{height:560px}
+  .categoryInfo{right:22px;bottom:28px;left:25px}
+  .categoryInfo h3{font-size:34px}
+  .uniformStage{min-height:610px;gap:10px}
+  .modelMeta{right:18px;left:18px}.modelMeta strong{font-size:21px}
+  .atelier{gap:5vw}.atelierVisual{min-height:610px}.atelierCopy h2{font-size:54px}
+  .quoteLayout{grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:3vw;padding-right:4vw;padding-left:4vw}
+  .quoteSummary{padding:28px}.quoteSummary h2{font-size:38px}
+  .locationContent{gap:4vw;padding-right:5vw;padding-left:5vw}
+  .locationActions{flex-direction:column}.locationPrimary,.locationSecondary{width:100%}
+}
+
+@media(max-width:600px){
+  .hero h1{font-size:clamp(46px,15vw,58px)}
+  .heroContent{margin-right:18px;margin-left:18px}
+  .heroText{max-width:100%;margin:26px 0;font-size:13px}
+  .button{width:100%;min-width:0}
+  .section{padding-right:18px;padding-left:18px}
+  .section h2,.atelierCopy h2,.locationInfo h2{font-size:clamp(42px,13vw,52px)}
+  .stats{flex-wrap:wrap;gap:25px}.stats strong{font-size:36px}
+  .category{height:min(500px,125vw)}
+  .categoryInfo{right:20px;bottom:26px;left:22px}.categoryInfo h3{font-size:36px}.categoryInfo p{padding-right:54px}
+  .uniformModel{height:min(590px,145vw)}
+  .showcaseHeading{margin-bottom:42px}.showcaseFoot{font-size:8px}
+  .atelierVisual{min-height:440px}.verticalText{left:-8px}
+  .clientMarquee{width:calc(100% + 36px);margin-right:-18px;margin-left:-18px}
+  .clientMarquee span{gap:18px;padding:20px 18px;font-size:10px}
+  .cta{padding-right:18px;padding-left:18px}.cta h2{font-size:clamp(49px,15vw,58px)}
+  footer{padding-right:22px;padding-left:22px}footer div{flex-wrap:wrap;gap:18px 24px}
+  .optionGrid,.optionGrid.garmentOptions{grid-template-columns:1fr}
+  .formBlock{padding:26px 16px}.formStep{right:16px;top:17px}.formBlock h2{padding-right:38px;font-size:29px}
+  .quoteSummary{padding:28px 20px}.quoteTotal strong{font-size:38px}
+  .addressCard strong{font-size:20px}.visitNotes{flex-direction:column;gap:14px}
+  .mapFrame{height:360px}.interactiveMap.expanded .mapFrame{height:480px}.mapFooter strong{font-size:17px}
+}
+
+@media(prefers-reduced-motion:reduce){.clientMarqueeTrack{animation-play-state:paused}}
+
+/* Coleções lado a lado e navegáveis por gesto no celular. */
+@media(max-width:900px){
+  .collections{padding-right:0;padding-left:0}
+  .collections .sectionTop{padding-right:20px;padding-left:20px}
+  .categoryGrid{display:flex;grid-template-columns:none;gap:8px;overflow-x:auto;padding:0 20px 14px;scroll-padding-left:20px;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .categoryGrid::-webkit-scrollbar{display:none}
+  .category,.category.isHovered,.category.isDimmed{flex:0 0 min(82vw,390px);height:min(570px,145vw);opacity:1;filter:none;scroll-snap-align:start}
+  .categoryInfo{right:22px;bottom:28px;left:24px}
+  .categoryInfo p{max-width:240px;padding-right:48px}
+}
+
+/* Duas coleções visíveis por vez em celulares. */
+@media(max-width:900px){
+  .collections .categoryGrid.categoryStrip{display:flex!important;width:100%;max-width:100vw;grid-template-columns:none!important;flex-flow:row nowrap!important;align-items:stretch;gap:6px;overflow-x:auto!important;padding:0 14px 14px}
+  .categoryStrip>.category,.categoryStrip>.category.isHovered,.categoryStrip>.category.isDimmed{width:auto!important;min-width:0!important;flex:0 0 min(78vw,390px)!important;height:min(560px,138vw);scroll-snap-align:start}
+  .categoryStrip .number{top:16px;left:15px}
+  .categoryStrip .categoryInfo{right:13px;bottom:18px;left:14px}
+  .categoryStrip .categoryInfo h3{font-size:clamp(30px,9vw,39px);line-height:1}
+  .categoryStrip .categoryInfo p{max-width:235px;padding-right:34px;font-size:11px;line-height:1.5}
+  .categoryStrip .roundArrow{position:relative;right:auto;bottom:auto;width:38px;height:38px;margin-top:14px}
+}
+
+@media(max-width:380px){
+  .categoryStrip>.category,.categoryStrip>.category.isHovered,.categoryStrip>.category.isDimmed{height:500px}
+  .categoryStrip .categoryInfo h3{font-size:30px}
+}
+
+.categoryPagination{display:none}
+@media(max-width:900px){
+  .categoryPagination{display:flex;align-items:center;justify-content:center;gap:7px;padding:8px 20px 0}
+  .categoryPagination button{display:grid;width:34px;height:28px;place-items:center;padding:0;border:0;background:transparent;cursor:pointer}
+  .categoryPagination button span{display:block;width:7px;height:7px;border:1px solid #f3c76a;border-radius:999px;background:transparent;transition:width .3s ease,background-color .3s ease}
+  .categoryPagination button.active span{width:25px;background:var(--gold2)}
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Category = { title: string; text: string; image: string };
 
@@ -16,6 +16,29 @@ function Chevron({ direction }: { direction: "left" | "right" }) {
 export default function ExpandableCategoryGallery({ categories }: { categories: Category[] }) {
   const [hovered, setHovered] = useState<number | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const stripRef = useRef<HTMLDivElement>(null);
+
+  const goToSlide = (index: number) => {
+    const strip = stripRef.current;
+    const card = strip?.children[index] as HTMLElement | undefined;
+    if (!strip || !card) return;
+    const firstCard = strip.children[0] as HTMLElement;
+    strip.scrollTo({ left: card.offsetLeft - firstCard.offsetLeft, behavior: "smooth" });
+    setActiveSlide(index);
+  };
+
+  const updateActiveSlide = () => {
+    const strip = stripRef.current;
+    if (!strip) return;
+    const cards = Array.from(strip.children) as HTMLElement[];
+    const firstOffset = cards[0]?.offsetLeft ?? 0;
+    const closest = cards.reduce((best, card, index) => {
+      const distance = Math.abs(card.offsetLeft - firstOffset - strip.scrollLeft);
+      return distance < best.distance ? { index, distance } : best;
+    }, { index: 0, distance: Number.POSITIVE_INFINITY });
+    setActiveSlide(closest.index);
+  };
 
   useEffect(() => {
     document.body.style.overflow = selected === null ? "" : "hidden";
@@ -29,7 +52,7 @@ export default function ExpandableCategoryGallery({ categories }: { categories: 
   }, [selected, categories.length]);
 
   return <>
-    <div className="categoryGrid" onMouseLeave={() => setHovered(null)}>
+    <div ref={stripRef} className="categoryGrid categoryStrip" onMouseLeave={() => setHovered(null)} onScroll={updateActiveSlide}>
       {categories.map((item, i) => (
         <article
           className={`category ${hovered === i ? "isHovered" : ""} ${hovered !== null && hovered !== i ? "isDimmed" : ""}`}
@@ -47,6 +70,9 @@ export default function ExpandableCategoryGallery({ categories }: { categories: 
           <div className="categoryInfo"><h3>{item.title}</h3><p>{item.text}</p><span className="roundArrow"><ArrowUpRight/></span></div>
         </article>
       ))}
+    </div>
+    <div className="categoryPagination" aria-label="Navegação das coleções">
+      {categories.map((item, index) => <button key={item.title} type="button" className={activeSlide === index ? "active" : ""} onClick={() => goToSlide(index)} aria-label={`Ver coleção ${item.title}`} aria-current={activeSlide === index ? "true" : undefined}><span/></button>)}
     </div>
 
     {selected !== null && <div className="galleryModal" role="dialog" aria-modal="true" aria-label={`Uniforme ${categories[selected].title}`} onClick={() => setSelected(null)}>

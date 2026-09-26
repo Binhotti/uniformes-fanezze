@@ -14,25 +14,21 @@ export default function FloatingContactButton({ whatsappUrl }: { whatsappUrl: st
   const [showBackToTop, setShowBackToTop] = useState(false);
 
   useEffect(() => {
-    const contact = document.querySelector("#contato");
-    const mobile = window.matchMedia("(max-width: 900px)");
-    if (!contact) return;
-
-    const observer = new IntersectionObserver(([entry]) => {
-      setShowBackToTop(mobile.matches && entry.isIntersecting);
-    }, { threshold: 0.3 });
-
-    const updateForViewport = () => {
-      if (!mobile.matches) setShowBackToTop(false);
+    const updateForScroll = () => {
+      const scrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
+      setShowBackToTop(scrollPosition > 120);
     };
-
-    observer.observe(contact);
-    mobile.addEventListener("change", updateForViewport);
-    return () => { observer.disconnect(); mobile.removeEventListener("change", updateForViewport); };
+    updateForScroll();
+    window.addEventListener("scroll", updateForScroll, { passive: true });
+    document.addEventListener("scroll", updateForScroll, { passive: true, capture: true });
+    return () => {
+      window.removeEventListener("scroll", updateForScroll);
+      document.removeEventListener("scroll", updateForScroll, { capture: true });
+    };
   }, []);
 
   return <>
-    <a className={`whatsappFloat ${showBackToTop ? "isHidden" : "isVisible"}`} href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Conversar com a Fanezze pelo WhatsApp"><WhatsAppIcon/><span>Fale conosco</span></a>
+    <a className="whatsappFloat contactPrimary isVisible" href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Conversar com a Fanezze pelo WhatsApp"><WhatsAppIcon/><span>Fale conosco</span></a>
     <button type="button" className={`whatsappFloat backToTop ${showBackToTop ? "isVisible" : "isHidden"}`} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Voltar ao início"><ArrowUp/><span>Voltar ao início</span></button>
   </>;
 }

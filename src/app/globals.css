@@ -30,14 +30,16 @@ section[id]{scroll-margin-top:92px}
 .roundArrow .actionIcon{transition:transform .3s ease}
 .mobileFooterBack{display:none}
 
-.whatsappFloat{position:fixed;z-index:80;left:28px;bottom:28px;display:flex;align-items:center;gap:10px;height:54px;padding:0 19px 0 14px;border:1px solid #ffffff30;border-radius:999px;background:#1fa855;color:#fff;box-shadow:0 12px 35px rgba(0,0,0,.34);font-family:inherit;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.11em;cursor:pointer;appearance:none;transition:opacity .25s ease,visibility .25s ease,transform .25s ease,background-color .25s ease,box-shadow .25s ease}
+.whatsappFloat{position:fixed!important;z-index:2147483000;left:28px;display:flex!important;align-items:center;justify-content:center;width:54px;height:54px;padding:0;border:1px solid #ffffff30;border-radius:50%;background:#1fa855;color:#fff;box-shadow:0 12px 35px rgba(0,0,0,.34);font-family:inherit;cursor:pointer;appearance:none;transition:opacity .25s ease,visibility .25s ease,transform .25s ease,background-color .25s ease,box-shadow .25s ease}
 .whatsappFloat:hover{background:#24bd61;transform:translateY(-4px);box-shadow:0 17px 40px rgba(0,0,0,.42)}
 .whatsappFloat svg{flex:none}
+.whatsappFloat span{display:none}
 .whatsappFloat.backToTop{border-color:#f3c76a;background:var(--gold2);color:#111}
 .whatsappFloat.backToTop:hover{background:#f8d785}
 .whatsappFloat.isVisible{opacity:1;visibility:visible;pointer-events:auto;transform:scale(1)}
 .whatsappFloat.isHidden{opacity:0;visibility:hidden;pointer-events:none;transform:scale(.78)}
-@media(max-width:900px){.whatsappFloat{left:18px;bottom:18px;width:52px;height:52px;padding:0;justify-content:center}.whatsappFloat.backToTop{left:auto;right:18px}.whatsappFloat span{display:none}}
+.whatsappFloat.contactPrimary{bottom:114px}.whatsappFloat.backToTop{bottom:48px}
+@media(max-width:900px){.whatsappFloat{left:18px;width:52px;height:52px;padding:0;justify-content:center}.whatsappFloat.contactPrimary{bottom:102px}.whatsappFloat.backToTop{left:18px;right:auto;bottom:38px}.whatsappFloat span{display:none}}
 
 /* Galeria expansível das linhas de uniformes. */
 .categoryGrid{display:flex;gap:2px}
@@ -85,7 +87,7 @@ section[id]{scroll-margin-top:92px}
 @media(max-width:900px){.uniformShowcase{padding-left:20px;padding-right:20px}.showcaseHeading{grid-template-columns:1fr;gap:30px;margin:0 4px 55px}.showcaseHeading>p{font-size:14px}.uniformStage{grid-template-columns:1fr;min-height:0}.uniformModel{height:590px}.showcaseFoot{gap:18px;flex-wrap:wrap;justify-content:flex-start}.uniformModel img{width:88%;height:84%}}
 @media(prefers-reduced-motion:reduce){.uniformModel img,.modelShadow{animation:none}}
 
-@media(max-width:900px){footer{position:relative}.mobileFooterBack{position:absolute;z-index:5;display:grid;place-items:center;right:20px;top:28px;width:52px;height:52px;border:1px solid #f3c76a;border-radius:50%;background:var(--gold2);color:#111;box-shadow:0 12px 30px rgba(0,0,0,.3);transition:transform .25s ease,background-color .25s ease}.mobileFooterBack:active{transform:scale(.92);background:#f8d785}}
+@media(max-width:900px){footer{position:relative}.mobileFooterBack{display:none}}
 
 /* Página reservada de orçamento. */
 .quotePage{min-height:100vh;background:#f2ece2;color:#14120f}
@@ -264,6 +266,12 @@ html,body{overflow-x:clip}
 @media(min-width:1181px){
   .atelier{margin-bottom:clamp(-3.5rem,-3vw,-2.5rem)}
   .clients{position:relative;z-index:2}
+}
+
+/* Mantém o título do processo em duas linhas no desktop. */
+@media(min-width:1181px){
+  .atelier{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(2rem,5vw,5rem)}
+  .atelierCopy h2{max-width:none;white-space:nowrap}
 }
 
 /* Crédito de criação no rodapé. */

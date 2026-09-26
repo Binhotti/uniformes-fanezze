@@ -38,7 +38,7 @@ export default function Home() {
           <Image src="/images/logo-fanezze.png" alt="Fanezze Uniformes" width={250} height={60} priority />
         </a>
         <nav aria-label="Navegação principal">
-          <a href="#colecoes">Coleções</a><a href="#diferenciais">Diferenciais</a><a href="#clientes">Clientes</a><a href="/orcamento">Orçamento</a>
+          <a href="#colecoes">Coleções</a><a href="#diferenciais">Diferenciais</a><a href="#clientes">Clientes</a><a href="/localizacao">Localização</a><a href="/orcamento">Orçamento</a>
         </nav>
         <a className="headerCta" href="/orcamento">Solicitar orçamento <span className="iconSlot"><ArrowUpRight size={16}/></span></a>
       </header>

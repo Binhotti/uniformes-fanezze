@@ -266,6 +266,18 @@ html,body{overflow-x:clip}
   .clients{position:relative;z-index:2}
 }
 
+/* Crédito de criação no rodapé. */
+footer>small{grid-column:1/2}
+footer .footerSignature{grid-column:2/3;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:5px;margin-top:25px;padding-top:18px;border-top:1px solid #ffffff15;color:#fff;font-size:9px;text-transform:uppercase;letter-spacing:.16em}
+footer .footerSignature span{display:block;color:#fff;opacity:.92}
+footer .footerSignature img{width:126px;height:auto;filter:brightness(1.28) saturate(1.12) drop-shadow(0 0 7px rgba(255,255,255,.3))}
+
+@media(max-width:900px){
+  footer>small{grid-column:1}
+  footer .footerSignature{grid-column:1;align-items:flex-start;justify-content:flex-start;margin-top:0;padding-top:4px;border-top:0}
+  footer .footerSignature img{width:116px}
+}
+
 @media(prefers-reduced-motion:reduce){.clientMarqueeTrack{animation-play-state:paused}}
 
 /* Coleções lado a lado e navegáveis por gesto no celular. */
